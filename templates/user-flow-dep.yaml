@@ -40,7 +40,7 @@ spec:
             - name: VAULT_TOKEN
               value: {{.Values.userflow.vaultToken | quote}}
             - name: AUTH_MANAGER_URL
-              value: "http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port | quote }}"
+              value: http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port | quote }}
             - name: CORS_ALLOW_ORIGIN
               value: {{.Values.userflow.corsAllowOrigin | quote}}
             - name: LOG_LEVEL
