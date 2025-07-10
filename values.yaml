@@ -1,0 +1,46 @@
+replicaCount: 1
+claimName: authsecdev-pvc
+
+postgresDb:
+  dbHost: "postgresql-primary.database.svc.cluster.local"
+  dbPort: "5432"
+  dbUser: "authsec"
+  dbPassword: "authsec@kloudone"
+  dbName: "authsec"
+  dbSchema: "public"
+
+resources:
+  limits:
+    cpu: "0.5"
+    memory: "512Mi"
+  requests:
+    cpu: "0.25"
+    memory: "256Mi"
+
+authmanager:
+  port: 7469
+  image:
+    repository: docker-repo.authnull.com/auth-manager
+    tag: latest
+  env:
+    corsAllowOrigin: "*"
+    jwtDefSecret: "7f9b2a3c8e6d4f1b9a0c3e7d2f5b8a1c9e3d6f2a4b7c8e0d1f9a2b3c"
+    jwtSdkSecret: "3f2a1b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9"
+    vaultAddr: "http://vault.databse.svc.cluster.local:8200"
+    vaultToken: "hvs.CAESIEyHKH0hlW-PUg6P_VzIpL-2m1jzDHWPfIGyb3rI4auCGh4KHGh2cy45aHdmWHJjbVVaSU5OeWNXRmhPY1pkNVU"
+    logLevel: "info"
+    ginMode: "release"
+
+userflow:
+  port: 7468
+  image:
+    repository: docker-repo.authnull.com/user-flow
+    tag: latest
+  env:
+    corsAllowOrigin: "*"
+    jwtDefSecret: "7f9b2a3c8e6d4f1b9a0c3e7d2f5b8a1c9e3d6f2a4b7c8e0d1f9a2b3c"
+    jwtSdkSecret: "3f2a1b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9"
+    vaultAddr: "http://vault.databse.svc.cluster.local:8200"
+    vaultToken: "hvs.CAESIEyHKH0hlW-PUg6P_VzIpL-2m1jzDHWPfIGyb3rI4auCGh4KHGh2cy45aHdmWHJjbVVaSU5OeWNXRmhPY1pkNVU"
+    logLevel: "info"
+    ginMode: "release"

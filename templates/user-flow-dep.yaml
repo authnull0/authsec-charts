@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-user-flow
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-user-flow
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-user-flow
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-user-flow
+          image: {{ .Values.userflow.image.repository }}:{{ .Values.userflow.image.tag }}
+          env:
+            - name: PORT
+              value: {{.Values.userflow.port | quote}}
+            - name: DB_HOST
+              value: {{.Values.postgresDb.dbHost | quote}}
+            - name: DB_PORT
+              value: {{.Values.postgresDb.dbPort | quote}}
+            - name: DB_USER
+              value: {{.Values.postgresDb.dbUser | quote}}
+            - name: DB_PASSWORD
+              value: {{.Values.postgresDb.dbPassword | quote}}
+            - name: DB_NAME
+              value: {{.Values.postgresDb.dbName | quote}}
+            - name: DB_SCHEMA
+              value: {{.Values.postgresDb.dbSchema | quote}}
+            - name: JWT_DEF_SECRET
+              value: {{.Values.userflow.jwtDefSecret | quote}}
+            - name: JWT_SDK_SECRET
+              value: {{.Values.userflow.jwtSdkSecret | quote}}
+            - name: VAULT_ADDR
+              value: {{.Values.userflow.vaultAddr | quote}}
+            - name: VAULT_TOKEN
+              value: {{.Values.userflow.vaultToken | quote}}
+            - name: AUTH_MANAGER_URL
+              value: "http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port | quote }}"
+            - name: CORS_ALLOW_ORIGIN
+              value: {{.Values.userflow.corsAllowOrigin | quote}}
+            - name: LOG_LEVEL
+              value: {{.Values.userflow.logLevel | quote}}
+            - name: GIN_MODE
+              value: {{.Values.userflow.ginMode | quote}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.userflow.port }}
+      serviceAccountName: {{ .Release.Namespace }}-sa
+      imagePullSecrets:
+        - name: "{{ .Release.Name }}-docker-registry-secret"

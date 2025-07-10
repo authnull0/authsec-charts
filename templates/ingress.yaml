@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: authsec-ingress
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization, Origin, X-Requested-With, Content-Type, Accept, Content-Length, Accept-Encoding, X-CSRF-Token, accept, Cache-Control, X-Authorization, withCredentials, X-Requesturl,X-User-Ip, Userid, email"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '60'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '60'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '60'
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Release.Name }}.api.authsec.com
+      secretName: {{ .Release.Name }}-api-tls
+
+  rules:
+    - host: {{ .Release.Name }}.api.authsec.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /authmgr/
+            backend:
+              service:
+                name: {{ .Release.Name }}-auth-manager
+                port:
+                  number: {{ .Values.authmanager.port }}
+          - pathType: Prefix
+            path: /uflow/
+            backend:
+              service:
+                name: {{ .Release.Name }}-user-flow
+                port:
+                  number: {{ .Values.userflow.port }}

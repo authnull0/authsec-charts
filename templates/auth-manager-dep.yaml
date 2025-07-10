@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-auth-manager
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-auth-manager
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-auth-manager
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-auth-manager
+          image: {{ .Values.authmanager.image.repository }}:{{ .Values.authmanager.image.tag }}
+          env:
+            - name: PORT
+              value: {{.Values.authmanager.port | quote}}
+            - name: DB_HOST
+              value: {{.Values.postgresDb.dbHost | quote}}
+            - name: DB_PORT
+              value: {{.Values.postgresDb.dbPort | quote}}
+            - name: DB_USER
+              value: {{.Values.postgresDb.dbUser | quote}}
+            - name: DB_PASSWORD
+              value: {{.Values.postgresDb.dbPassword | quote}}
+            - name: DB_NAME
+              value: {{.Values.postgresDb.dbName | quote}}
+            - name: DB_SCHEMA
+              value: {{.Values.postgresDb.dbSchema | quote}}
+            - name: JWT_DEF_SECRET
+              value: {{.Values.authmanager.jwtDefSecret | quote}}
+            - name: JWT_SDK_SECRET
+              value: {{.Values.authmanager.jwtSdkSecret | quote}}
+            - name: VAULT_ADDR
+              value: {{.Values.authmanager.vaultAddr | quote}}
+            - name: VAULT_TOKEN
+              value: {{.Values.authmanager.vaultToken | quote}}
+            - name: CORS_ALLOW_ORIGIN
+              value: {{.Values.authmanager.corsAllowOrigin | quote}}
+            - name: LOG_LEVEL
+              value: {{.Values.authmanager.logLevel | quote}}
+            - name: GIN_MODE
+              value: {{.Values.authmanager.ginMode | quote}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.authmanager.port }}
+      serviceAccountName: {{ .Release.Namespace }}-sa
+      imagePullSecrets:
+        - name: "{{ .Release.Name }}-docker-registry-secret"
