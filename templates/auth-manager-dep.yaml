@@ -32,19 +32,19 @@ spec:
             - name: DB_SCHEMA
               value: {{.Values.postgresDb.dbSchema | quote}}
             - name: JWT_DEF_SECRET
-              value: {{.Values.authmanager.jwtDefSecret | quote}}
+              value: {{.Values.authmanager.env.jwtDefSecret | quote}}
             - name: JWT_SDK_SECRET
-              value: {{.Values.authmanager.jwtSdkSecret | quote}}
+              value: {{.Values.authmanager.env.jwtSdkSecret | quote}}
             - name: VAULT_ADDR
-              value: {{.Values.authmanager.vaultAddr | quote}}
+              value: {{.Values.authmanager.env.vaultAddr | quote}}
             - name: VAULT_TOKEN
-              value: {{.Values.authmanager.vaultToken | quote}}
+              value: {{.Values.authmanager.env.vaultToken | quote}}
             - name: CORS_ALLOW_ORIGIN
-              value: {{.Values.authmanager.corsAllowOrigin | quote}}
+              value: {{.Values.authmanager.env.corsAllowOrigin | quote}}
             - name: LOG_LEVEL
-              value: {{.Values.authmanager.logLevel | quote}}
+              value: {{.Values.authmanager.env.logLevel | quote}}
             - name: GIN_MODE
-              value: {{.Values.authmanager.ginMode | quote}}
+              value: {{.Values.authmanager.env.ginMode | quote}}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.authmanager.port }}
