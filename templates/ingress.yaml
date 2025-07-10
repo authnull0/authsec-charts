@@ -18,11 +18,11 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - {{ .Release.Name }}.api.authsec.com
+        - {{ .Release.Name }}.api.authsec.dev
       secretName: {{ .Release.Name }}-api-tls
 
   rules:
-    - host: {{ .Release.Name }}.api.authsec.com
+    - host: {{ .Release.Name }}.api.authsec.dev
       http:
         paths:
           - pathType: Prefix
