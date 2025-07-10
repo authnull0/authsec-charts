@@ -39,3 +39,10 @@ spec:
                 name: {{ .Release.Name }}-user-flow
                 port:
                   number: {{ .Values.userflow.port }}
+          - pathType: Prefix
+            path: /oocmgr/
+            backend:
+              service:
+                name: {{ .Release.Name }}-ooc-manager
+                port:
+                  number: {{ .Values.oocmanager.port }}
