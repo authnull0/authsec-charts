@@ -47,10 +47,10 @@ identityprovider:
     googleClientId: "833970626725-fjjjug4gdo7g7ejq8rhafvvs1mfq6lau.apps.googleusercontent.com"
     googleClientSecret: "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"
     googleRedirectUrl: "https://dev.api.authsec.dev/a/auth/google/callback"
-    authSereverUrl: "https://dev.api.authsec.dev/authmgr"
+    authServerUrl: "https://dev.api.authsec.dev/a"
     sessionSecret: "7f9b2a3c8e6d4f1b9a0c3e7d2f5b8a1c9e3d6f2a4b7c8e0d1f9a2b3c"
     logLevel: "info"
-    ginMode: "release"
+    ginMode: "debug"
     
     
 oocmanager:
