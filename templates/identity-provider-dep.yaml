@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-identity-provider
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-identity-provider
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-identity-provider
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-identity-provider
+          image: {{ .Values.identityprovider.image.repository }}:{{ .Values.identityprovider.image.tag }}
+          env:
+            - name: PORT
+              value: {{.Values.identityprovider.port | quote}}
+            - name: DB_HOST
+              value: {{.Values.postgresDb.dbHost | quote}}
+            - name: DB_PORT
+              value: {{.Values.postgresDb.dbPort | quote}}
+            - name: DB_USER
+              value: {{.Values.postgresDb.dbUser | quote}}
+            - name: DB_PASSWORD
+              value: {{.Values.postgresDb.dbPassword | quote}}
+            - name: DB_NAME
+              value: {{.Values.postgresDb.dbName | quote}}
+            - name: DB_SCHEMA
+              value: {{.Values.postgresDb.dbSchema | quote}}
+            - name: JWT_DEF_SECRET
+              value: {{.Values.identityprovider.env.jwtDefSecret | quote}}
+            - name: JWT_SDK_SECRET
+              value: {{.Values.identityprovider.env.jwtSdkSecret | quote}}
+            - name: VAULT_ADDR
+              value: {{.Values.identityprovider.env.vaultAddr | quote}}
+            - name: VAULT_TOKEN
+              value: {{.Values.identityprovider.env.vaultToken | quote}}
+            - name: AUTH_MANAGER_URL
+              value: http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port | quote }}
+            - name: HYDRA_ADMIN_URL
+              value: {{ .Values.identityprovider.env.hydraAdminUrl | quote }}
+            - name: HYDRA_PUBLIC_URL
+              value: {{ .Values.identityprovider.env.hydraPublicUrl | quote }}
+            - name: GOOGLE_CLIENT_ID
+              value: {{ .Values.identityprovider.env.googleClientId | quote }}
+            - name: GOOGLE_CLIENT_SECRET
+              value: {{ .Values.identityprovider.env.googleClientSecret | quote }}
+            - name: GOOGLE_REDIRECT_URI
+              value: {{ .Values.identityprovider.env.googleRedirectUrl | quote }}
+            - name: AUTH_SERVER_URL
+              value: {{ .Values.identityprovider.env.authServerUrl | quote }}
+            - name: SESSION_SECRET
+              value: {{ .Values.identityprovider.env.sessionSecret | quote }}
+            - name: CORS_ALLOW_ORIGIN
+              value: {{.Values.identityprovider.env.corsAllowOrigin | quote}}
+            - name: LOG_LEVEL
+              value: {{.Values.identityprovider.env.logLevel | quote}}
+            - name: GIN_MODE
+              value: {{.Values.identityprovider.env.ginMode | quote}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.identityprovider.port }}
+      serviceAccountName: {{ .Release.Namespace }}-sa
+      imagePullSecrets:
+        - name: "{{ .Release.Name }}-docker-registry-secret"

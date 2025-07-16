@@ -46,3 +46,10 @@ spec:
                 name: {{ .Release.Name }}-ooc-manager
                 port:
                   number: {{ .Values.oocmanager.port }}
+          - pathType: Prefix
+            path: /a/
+            backend:
+              service: 
+                name: {{ .Release.Name }}-identity-provider
+                port:
+                  number: {{ .Values.identityprovider.port }}
