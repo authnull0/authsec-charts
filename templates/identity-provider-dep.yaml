@@ -41,6 +41,8 @@ spec:
               value: {{.Values.identityprovider.env.vaultToken | quote}}
             - name: AUTH_MANAGER_URL
               value: http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port | quote }}
+            - name: USER_FLOW_URL
+              value: http://{{ .Release.Name }}-user-flow.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.userflow.port | quote }}
             - name: HYDRA_ADMIN_URL
               value: {{ .Values.identityprovider.env.hydraAdminUrl | quote }}
             - name: HYDRA_PUBLIC_URL
