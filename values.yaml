@@ -43,7 +43,7 @@ identityprovider:
     vaultAddr: "http://vault.database.svc.cluster.local:8200"
     vaultToken: "hvs.CAESIEyHKH0hlW-PUg6P_VzIpL-2m1jzDHWPfIGyb3rI4auCGh4KHGh2cy45aHdmWHJjbVVaSU5OeWNXRmhPY1pkNVU"
     hydraAdminUrl: "http://hydra-admin.oauth-hydra.svc.cluster.local:4445"
-    hydraPublicUrl: "https://oauth.authsec.dev/o"
+    hydraPublicUrl: "https://oauth.authsec.dev/"
     googleClientId: "833970626725-fjjjug4gdo7g7ejq8rhafvvs1mfq6lau.apps.googleusercontent.com"
     googleClientSecret: "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"
     googleRedirectUrl: "https://dev.api.authsec.dev/a/auth/google/callback"
