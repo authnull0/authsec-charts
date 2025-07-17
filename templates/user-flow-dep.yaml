@@ -40,7 +40,9 @@ spec:
             - name: VAULT_TOKEN
               value: {{.Values.userflow.env.vaultToken | quote}}
             - name: AUTH_MANAGER_URL
-              value: http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port | quote }}
+              value: http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port }}
+            - name: HYDRA_ADMIN_URL
+              value: {{ .Values.userflow.env.hydraAdminUrl | quote }}
             - name: CORS_ALLOW_ORIGIN
               value: {{.Values.userflow.env.corsAllowOrigin | quote}}
             - name: LOG_LEVEL
