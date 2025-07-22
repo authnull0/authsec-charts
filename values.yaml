@@ -9,6 +9,12 @@ postgresDb:
   dbName: "authsec"
   dbSchema: "public"
 
+smtp:
+  smtpHost: "smtp.elasticemail.com"
+  smtpPort: "2525"
+  smtpUser: "support@authnull.com"
+  smtpPassword: "E2AA24DAB22D3996F76B2DCA9F2BFCEDD478"
+
 resources:
   limits:
     cpu: "0.5"

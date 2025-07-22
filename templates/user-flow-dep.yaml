@@ -31,6 +31,14 @@ spec:
               value: {{.Values.postgresDb.dbName | quote}}
             - name: DB_SCHEMA
               value: {{.Values.postgresDb.dbSchema | quote}}
+            - name: SMTP_HOST
+              value: {{.Values.smtp.smtpHost | quote}}
+            - name: SMTP_PORT
+              value: {{.Values.smtp.smtpPort | quote}}
+            - name: SMTP_USER
+              value: {{.Values.smtp.smtpUser | quote}}
+            - name: SMTP_PASSWORD
+              value: {{.Values.smtp.smtpPassword | quote}}
             - name: JWT_DEF_SECRET
               value: {{.Values.userflow.env.jwtDefSecret | quote}}
             - name: JWT_SDK_SECRET
