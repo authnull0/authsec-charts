@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-ui
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-ui
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-ui
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-ui
+          image: {{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.ui.port }}
+      serviceAccountName: {{ .Release.Namespace }}-sa
+      imagePullSecrets:
+        - name: "{{ .Release.Name }}-docker-registry-secret"

@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-webauthn-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-webauthn-service
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-webauthn-service
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-webauthn-service
+          image: {{ .Values.webauthnservice.image.repository }}:{{ .Values.webauthnservice.image.tag }}
+          env:
+            - name: PORT
+              value: {{.Values.webauthnservice.port | quote}}
+            - name: DB_HOST
+              value: {{.Values.postgresDb.dbHost | quote}}
+            - name: DB_PORT
+              value: {{.Values.postgresDb.dbPort | quote}}
+            - name: DB_USER
+              value: {{.Values.postgresDb.dbUser | quote}}
+            - name: DB_PASSWORD
+              value: {{.Values.postgresDb.dbPassword | quote}}
+            - name: DB_NAME
+              value: {{.Values.postgresDb.dbName | quote}}
+            - name: DB_SCHEMA
+              value: {{.Values.postgresDb.dbSchema | quote}}
+            - name: WEBAUTHN_RP_NAME
+              value: {{.Values.webauthnservice.env.webauthnRpName | quote}}
+            - name: WEBAUTHN_RP_ID
+              value: {{.Values.webauthnservice.env.webauthnRpId | quote}}
+            - name: WEBAUTHN_RP_ORIGIN
+              value: {{.Values.webauthnservice.env.webauthnRpOrigin | quote}}
+            - name: WEBAUTHN_TIMEOUT
+              value: {{.Values.webauthnservice.env.webauthnTimeout | quote}}
+            - name: WEBAUTHN_DEBUG
+              value: {{.Values.webauthnservice.env.webauthnDebug | quote}}
+            - name: CORS_ALLOWED_ORIGIN
+              value: {{.Values.webauthnservice.env.corsAllowedOrigin | quote}}
+            - name: CORS_ALLOWED_METHODS
+              value: {{.Values.webauthnservice.env.corsAllowedMethods | quote}}
+            - name: CORS_ALLOWED_HEADERS
+              value: {{.Values.webauthnservice.env.corsAllowedHeaders | quote}}
+            - name: LOG_LEVEL
+              value: {{.Values.webauthnservice.env.logLevel | quote}}
+            - name: GIN_MODE
+              value: {{.Values.webauthnservice.env.ginMode | quote}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.webauthnservice.port }}
+      serviceAccountName: {{ .Release.Namespace }}-sa
+      imagePullSecrets:
+        - name: "{{ .Release.Name }}-docker-registry-secret"

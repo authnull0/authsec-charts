@@ -73,6 +73,12 @@ oocmanager:
     logLevel: "info"
     ginMode: "release"
 
+ui:
+  port: 3000
+  image:
+    repository: docker-repo.authnull.com/ui
+    tag: latest
+
 userflow:
   port: 7468
   image:
@@ -87,3 +93,20 @@ userflow:
     hydraAdminUrl: "http://hydra-admin.oauth-hydra.svc.cluster.local:4445"
     logLevel: "info"
     ginMode: "release"
+
+webauthnservice:
+  port: 7471
+  image:
+    repository: docker-repo.authnull.com/webauthn-service
+    tag: latest
+  env:
+    logLevel: "info"
+    ginMode: "release"
+    webauthRpName: "authsec.dev"
+    webauthRpId: "https://app.authsec.dev"
+    webauthOrigin: "https://app.authsec.dev"
+    webauthnTimeout: "60000"
+    webauthnDebug: "true"
+    corsAllowedOrigin: "*"
+    corsAllowedMethods: "GET, POST, PUT, DELETE, OPTIONS"
+    corsAllowedHeaders: "Content-Type, Authorization, X-Requested-With, Accept, Origin, Cache-Control"
