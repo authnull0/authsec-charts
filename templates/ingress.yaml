@@ -20,6 +20,9 @@ spec:
     - hosts:
         - {{ .Release.Name }}.api.authsec.dev
       secretName: {{ .Release.Name }}-api-tls
+    - hosts:
+        - {{ .Release.Name }}.app.authsec.dev
+      secretName: {{ .Release.Name }}-app-tls
 
   rules:
     - host: {{ .Release.Name }}.api.authsec.dev
@@ -53,3 +56,20 @@ spec:
                 name: {{ .Release.Name }}-identity-provider
                 port:
                   number: {{ .Values.identityprovider.port }}
+          - pathType: Prefix
+            path: /webauthn/
+            backend:
+              service:
+                name: {{ .Release.Name }}-webauthn-service
+                port:
+                  number: {{ .Values.webauthnservice.port }}
+    - host: {{ .Release.Name }}.app.authsec.dev
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: {{ .Release.Name }}-ui
+                port:
+                  number: {{ .Values.ui.port }}
