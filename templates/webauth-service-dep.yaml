@@ -35,8 +35,8 @@ spec:
               value: {{.Values.webauthnservice.env.webauthnRpName | quote}}
             - name: WEBAUTHN_RP_ID
               value: {{.Values.webauthnservice.env.webauthnRpId | quote}}
-            - name: WEBAUTHN_RP_ORIGIN
-              value: {{.Values.webauthnservice.env.webauthnRpOrigin | quote}}
+            - name: WEBAUTHN_ORIGIN
+              value: {{.Values.webauthnservice.env.webauthnOrigin | quote}}
             - name: WEBAUTHN_TIMEOUT
               value: {{.Values.webauthnservice.env.webauthnTimeout | quote}}
             - name: WEBAUTHN_DEBUG

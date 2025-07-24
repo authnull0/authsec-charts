@@ -102,9 +102,9 @@ webauthnservice:
   env:
     logLevel: "info"
     ginMode: "release"
-    webauthRpName: "authsec.dev"
-    webauthRpId: "https://dev.app.authsec.dev"
-    webauthOrigin: "https://dev.app.authsec.dev"
+    webauthnRpName: "authsec.dev"
+    webauthnRpId: "https://dev.app.authsec.dev"
+    webauthnOrigin: "https://dev.app.authsec.dev"
     webauthnTimeout: "60000"
     webauthnDebug: "true"
     corsAllowedOrigin: "*"
