@@ -71,7 +71,7 @@ oocmanager:
     vaultAddr: "http://vault.database.svc.cluster.local:8200"
     vaultToken: "hvs.CAESIEyHKH0hlW-PUg6P_VzIpL-2m1jzDHWPfIGyb3rI4auCGh4KHGh2cy45aHdmWHJjbVVaSU5OeWNXRmhPY1pkNVU"
     hydraAdminUrl: "http://hydra-admin.oauth-hydra.svc.cluster.local:4445"
-    hydraPublicUrl: "https://oauth.authsec.dev/"
+    hydraPublicUrl: "https://oauth.authsec.dev"
     logLevel: "info"
     ginMode: "release"
 
