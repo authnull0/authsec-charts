@@ -41,6 +41,12 @@ spec:
               value: {{.Values.oocmanager.env.vaultToken | quote}}
             - name: AUTH_MANAGER_URL
               value: http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port | quote }}
+            - name: IDENTITY_PROVIDER_URL
+              value: http://{{ .Release.Name }}-identity-provider.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.identityprovider.port | quote }}
+            - name: HYDRA_ADMIN_URL
+              value: {{ .Values.oocmanager.env.hydraAdminUrl | quote }}
+            - name: HYDRA_PUBLIC_URL
+              value: {{ .Values.oocmanager.env.hydraPublicUrl | quote }}
             - name: CORS_ALLOW_ORIGIN
               value: {{.Values.oocmanager.env.corsAllowOrigin | quote}}
             - name: LOG_LEVEL
