@@ -42,7 +42,7 @@ spec:
             - name: AUTH_MANAGER_URL
               value: http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port | quote }}
             - name: IDENTITY_PROVIDER_URL
-              value: http://{{ .Release.Name }}-identity-provider.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.identityprovider.port | quote }}
+              value: {{ .Values.oocmanager.env.identityProviderUrl | quote }}
             - name: HYDRA_ADMIN_URL
               value: {{ .Values.oocmanager.env.hydraAdminUrl | quote }}
             - name: HYDRA_PUBLIC_URL

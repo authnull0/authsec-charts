@@ -49,6 +49,8 @@ spec:
               value: {{.Values.userflow.env.vaultToken | quote}}
             - name: AUTH_MANAGER_URL
               value: http://{{ .Release.Name }}-auth-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.authmanager.port }}
+            - name: OOC_MANAGER_URL
+              value: http://{{ .Release.Name }}-ooc-manager.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.oocmanager.port }}
             - name: HYDRA_ADMIN_URL
               value: {{ .Values.userflow.env.hydraAdminUrl | quote }}
             - name: CORS_ALLOW_ORIGIN
