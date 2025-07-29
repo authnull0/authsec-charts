@@ -36,12 +36,19 @@ spec:
                 port:
                   number: {{ .Values.authmanager.port }}
           - pathType: Prefix
-            path: /uflow/
+            path: /hmgr/
             backend:
               service:
-                name: {{ .Release.Name }}-user-flow
+                name: {{ .Release.Name }}-hydra-manager
                 port:
-                  number: {{ .Values.userflow.port }}
+                  number: {{ .Values.hydramanager.port }}
+          - pathType: Prefix
+            path: /a/
+            backend:
+              service: 
+                name: {{ .Release.Name }}-identity-provider
+                port:
+                  number: {{ .Values.identityprovider.port }}
           - pathType: Prefix
             path: /oocmgr/
             backend:
@@ -50,12 +57,12 @@ spec:
                 port:
                   number: {{ .Values.oocmanager.port }}
           - pathType: Prefix
-            path: /a/
+            path: /uflow/
             backend:
-              service: 
-                name: {{ .Release.Name }}-identity-provider
+              service:
+                name: {{ .Release.Name }}-user-flow
                 port:
-                  number: {{ .Values.identityprovider.port }}
+                  number: {{ .Values.userflow.port }}
           - pathType: Prefix
             path: /webauthn/
             backend:

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-hydra-manager
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-hydra-manager
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-hydra-manager
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-hydra-manager
+          image: {{ .Values.hydramanager.image.repository }}:{{ .Values.hydramanager.image.tag }}
+          env:
+            - name: PORT
+              value: {{.Values.hydramanager.port | quote}}
+            - name: MASTER_DB_HOST
+              value: {{.Values.postgresDb.dbHost | quote}}
+            - name: MASTER_DB_PORT
+              value: {{.Values.postgresDb.dbPort | quote}}
+            - name: MASTER_DB_USER
+              value: {{.Values.postgresDb.dbUser | quote}}
+            - name: MASTER_DB_PASSWORD
+              value: {{.Values.postgresDb.dbPassword | quote}}
+            - name: MASTER_DB_NAME
+              value: {{.Values.postgresDb.dbName | quote}}
+            - name: MASTER_DB_SCHEMA
+              value: {{.Values.postgresDb.dbSchema | quote}}
+            - name: MASTER_DB_SSL_MODE
+              value: "disable"
+            - name: BASE_URL
+              value: "https://{{ .Release.Name }}.api.authsec.dev/hmgr"
+            - name: HYDRA_ADMIN_URL
+              value: {{ .Values.hydramanager.env.hydraAdminUrl | quote }}
+            - name: HYDRA_PUBLIC_URL
+              value: {{ .Values.hydramanager.env.hydraPublicUrl | quote }}
+            - name: SESSION_SECRET
+              value: {{ .Values.hydramanager.env.sessionSecret | quote }}
+            - name: CORS_ALLOW_ORIGIN
+              value: {{.Values.hydramanager.env.corsAllowOrigin | quote}}
+            - name: LOG_LEVEL
+              value: {{.Values.hydramanager.env.logLevel | quote}}
+            - name: GIN_MODE
+              value: {{.Values.hydramanager.env.ginMode | quote}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.hydramanager.port }}
+      serviceAccountName: {{ .Release.Namespace }}-sa
+      imagePullSecrets:
+        - name: "{{ .Release.Name }}-docker-registry-secret"
