@@ -9,7 +9,7 @@ pipeline {
         AZURE_CLIENT_ID = credentials('clientid')  
         AZURE_CLIENT_SECRET = credentials('secretid') 
         AZURE_TENANT_ID = credentials('tenantid')  
-        GITHUB_REPO = 'https://github.com/authsec-ai/authsec-charts.git'
+        GITHUB_REPO = 'https://github.com/authnull0/authsec-charts.git'
         GITHUB_BRANCH = 'main'
     }
 
