@@ -5,7 +5,7 @@ pipeline {
         AZURE_SUBSCRIPTION_ID = credentials('subscriptionId')
         AKS_CLUSTER = 'authnull-v2'  
         RESOURCE_GROUP = 'azure-k8s'
-        K8S_NAMESPACE = 'authnull-dev'
+        K8S_NAMESPACE = 'authsec'
         AZURE_CLIENT_ID = credentials('clientid')  
         AZURE_CLIENT_SECRET = credentials('secretid') 
         AZURE_TENANT_ID = credentials('tenantid')  
