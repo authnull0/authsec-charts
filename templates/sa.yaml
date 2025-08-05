@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ dev-ooc-manager }}-sa
+  name: dev-ooc-manager-sa
 
   namespace: {{ .Release.Namespace }}
+
