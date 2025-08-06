@@ -24,6 +24,7 @@ resources:
     memory: "256Mi"
 
 authmanager:
+  fullnameOverride: dev-auth-manager
   port: 7469
   image:
     repository: docker-repo.authnull.com/auth-manager
@@ -38,6 +39,7 @@ authmanager:
     ginMode: "release"
 
 hydramanager:
+  fullnameOverride: dev-hydra-manager 
   port: 7472
   image:
     repository: docker-repo.authnull.com/hydra-manager
@@ -52,6 +54,7 @@ hydramanager:
 
 
 identityprovider:
+  fullnameOverride: dev-identity-provider
   port: 7470
   image:
     repository: docker-repo.authnull.com/identity-provider
@@ -74,6 +77,7 @@ identityprovider:
     
     
 oocmanager:
+  fullnameOverride: dev-ooc-manager
   port: 7467
   image:
     repository: docker-repo.authnull.com/ooc-manager
@@ -91,12 +95,14 @@ oocmanager:
     ginMode: "release"
 
 ui:
+  fullnameOverride: dev-ui
   port: 3000
   image:
     repository: docker-repo.authnull.com/ui
     tag: latest
 
 userflow:
+  fullnameOverride: dev-user-flow
   port: 7468
   image:
     repository: docker-repo.authnull.com/user-flow
@@ -112,6 +118,7 @@ userflow:
     ginMode: "release"
 
 webauthnservice:
+  fullnameOverride: dev-web-authn-service
   port: 7471
   image:
     repository: docker-repo.authnull.com/webauthn-service
