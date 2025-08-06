@@ -43,7 +43,7 @@ pipeline {
 
         stage('Deploying Helm Chart') {
             steps {
-                sh "helm upgrade dev . --namespace ${K8S_NAMESPACE}"
+                sh "helm upgrade authsec-chart . --namespace ${K8S_NAMESPACE}"
                 echo 'Helm Chart Deployed'
             }
         }
